@@ -3,36 +3,28 @@ apt update
 apt install bird2 -y
 
 echo "开始下载 clash meta"
-wget https://github.com/MetaCubeX/Clash.Meta/releases/download/v1.15.1/clash.meta-linux-amd64-compatible-v1.15.1.gz
+wget https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-compatible-alpha-7eb16a0.gz
 echo "clash premium 下载完成"
 
 echo "开始解压"
-gunzip clash.meta-linux-amd64-compatible-v1.15.1.gz
+gunzip mihomo-linux-amd64-compatible-alpha-7eb16a0.gz
 echo "解压完成"
 
 echo "开始重命名"
-mv clash.meta-linux-amd64-compatible-v1.15.1 clash
+mv mihomo-linux-amd64-compatible-alpha-7eb16a0 mihomo
 echo "重命名完成"
 
 echo "开始添加执行权限"
-chmod u+x clash
+chmod u+x mihomo
 echo "执行权限添加完成"
 
-echo "开始创建 /etc/clash 目录"
-sudo mkdir /etc/clash
-echo "/etc/clash 目录创建完成"
+echo "开始创建 /etc/mihomo 目录"
+sudo mkdir /etc/mihomo
+echo "/etc/mihomo 目录创建完成"
 
 echo "开始复制 clash 到 /usr/local/bin"
 sudo cp clash /usr/local/bin
 echo "复制完成"
-
-echo "开始安装docker"
-apt install docker.io -y
-echo "docker安装完成"
-
-echo "开始安装ui界面"
-docker run -d --restart always -p 80:80 --name metacubexd ghcr.io/metacubex/metacubexd
-echo "ui界面安装完成"
 
 echo "开始设置 转发"
 echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf
@@ -49,7 +41,7 @@ After=network.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/local/bin/clash -d /etc/clash
+ExecStart=/usr/local/bin/mihomo -d /etc/mihomo
 
 [Install]
 WantedBy=multi-user.target
